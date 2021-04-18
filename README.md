@@ -1,10 +1,10 @@
-# FMR
+# FaceMask'd
 
-Face mask recognition and temperature detection module for Raspberry Pi using p5.js, ml5.js and Vue.js.
+FaceMask'd is a face mask recognition and temperature detection module for Raspberry Pi built with p5.js, ml5.js and Vue.js.
 
 ## Description
 
-This module can distinguish between face masks worn correctly and incorrectly, as well as people not wearing a face mask at all. After analyzing the images, the module then classifies them in three different categories:
+FaceMask'd can distinguish between face masks worn correctly and incorrectly, as well as people not wearing a face mask at all. After analyzing the images, the module then classifies them in three different categories:
 
 - Face mask worn correctly
 - Face mask worn incorrectly

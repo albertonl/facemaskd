@@ -1,5 +1,7 @@
 # fmr
 
+Face recognition module using p5.js, ml5.js and Vue.js.
+
 ## Project setup
 ```
 npm install

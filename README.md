@@ -30,3 +30,7 @@ Or compile and minify the project for production deployment:
 ```
 npm run build
 ```
+
+## License
+
+This project is distributed under the [MIT License](https://opensource.org/licenses/MIT). For more information, please refer to the [LICENSE](https://github.com/albertonl/fmr/blob/main/LICENSE) file in this repository.

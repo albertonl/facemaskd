@@ -16,11 +16,18 @@ function preload() {
 }
 
 function setup () {
-	createCanvas(1000, 812);
+	var videoCanvas = createCanvas(document.getElementById("videoContainer").offsetWidth - 50, Math.round((document.getElementById("videoContainer").offsetWidth - 50) * 0.812));
 	// Create the video
 	video = createCapture(VIDEO);
-	video.size(1000, 812);
+	video.size(document.getElementById("videoContainer").offsetWidth - 50, Math.round((document.getElementById("videoContainer").offsetWidth - 50)* 0.812));
 	video.hide();
+	
+	// Move all <canvas> and <video> elements
+	console.log(document.querySelector("canvas"));
+	document.querySelectorAll("canvas, video").forEach(e => {
+		console.log("moved element");
+		document.getElementById("videoContainer").appendChild(e);
+	});
 
 	flippedVideo = ml5.flipImage(video);
 	// Start classifying

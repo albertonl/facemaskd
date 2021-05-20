@@ -21,12 +21,15 @@ function setup () {
 	video = createCapture(VIDEO);
 	video.size(document.getElementById("videoContainer").offsetWidth - 50, Math.round((document.getElementById("videoContainer").offsetWidth - 50)* 0.812));
 	video.hide();
-	
+
 	// Move all <canvas> and <video> elements
 	console.log(document.querySelector("canvas"));
 	document.querySelectorAll("canvas, video").forEach(e => {
-		console.log("moved element");
-		document.getElementById("videoContainer").appendChild(e);
+		if (e.style.display == 'none') {
+			e.remove();
+		} else {
+			document.getElementById("videoContainer").appendChild(e);
+		}
 	});
 
 	flippedVideo = ml5.flipImage(video);
@@ -61,8 +64,16 @@ function gotResult(error, results) {
 		return;
 	}
 	// The results are in an array ordered by confidence.
-	// console.log(results[0]);
+	// console.log(results);
 	label = results[0].label;
 	// Classify again!
 	classifyVideo();
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+	// Resize video canvas on window resize:
+	window.addEventListener('resize', () => {
+		console.log("W: " + String(document.getElementById("videoContainer").offsetWidth) + " H: " + String(document.getElementById("videoContainer").offsetHeight));
+		setup();
+	});
+});

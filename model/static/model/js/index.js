@@ -65,6 +65,42 @@ function gotResult(error, results) {
 	}
 	// The results are in an array ordered by confidence.
 	// console.log(results);
+	
+	// Display results
+	for (let i = 0; i < 3; i++) {
+		switch (results[i].label) {
+			case "Mask worn correctly":
+				document.getElementById("percentCorrect").innerHTML = Math.round(results[i].confidence * 100);
+				document.getElementById("progressCorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
+				document.getElementById("progressCorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+				break;
+			case "Mask worn incorrectly":
+				document.getElementById("percentCorrect").innerHTML = Math.round(results[i].confidence * 100);
+				document.getElementById("progressCorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
+				document.getElementById("progressCorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+				break;
+			case "Without mask":
+				document.getElementById("percentNoMask").innerHTML = Math.round(results[i].confidence * 100);
+				document.getElementById("progressNoMask").style.width = '${Math.round(results[i].confidence * 100)}%';
+				document.getElementById("progressNoMask").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+				break;
+		}
+/*
+		if (results[i].label === "Mask worn correctly") {
+			document.getElementById("percentCorrect").innerHTML = Math.round(results[i].confidence * 100);
+			document.getElementById("progressCorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
+			document.getElementById("progressCorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+		} else if (results[i].label === "Mask worn incorrectly") {
+			document.getElementById("percentIncorrect").innerHTML = Math.round(results[i].confidence * 100);
+			document.getElementById("progressIncorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
+			document.getElementById("progressIncorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+		} else if (results[i].label === "Without mask") {
+			document.getElementById("percentNoMask").innerHTML = Math.round(results[i].confidence * 100);
+			document.getElementById("progressNoMask").style.width = '${Math.round(results[i].confidence * 100)}%';
+			document.getElementById("progressNoMask").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+		}
+*/
+	}
 	label = results[0].label;
 	// Classify again!
 	classifyVideo();
@@ -73,7 +109,6 @@ function gotResult(error, results) {
 document.addEventListener('DOMContentLoaded', () => {
 	// Resize video canvas on window resize:
 	window.addEventListener('resize', () => {
-		console.log("W: " + String(document.getElementById("videoContainer").offsetWidth) + " H: " + String(document.getElementById("videoContainer").offsetHeight));
 		setup();
 	});
 });

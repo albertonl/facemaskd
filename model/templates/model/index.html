@@ -24,19 +24,15 @@
 
 </div>
 <div class="col-lg-6 col-sm-12 p-5">
-	<h2>Prediction
-		(<span id="percentCorrect" class="text-success">56%</span>&nbsp;&mdash;
-		<span id="percentIncorrect" class="text-warning">20%</span>&nbsp;&mdash;
-		<span id="percentNoMask"class="text-danger">5%</span>)
-	</h2>
+	<h2>Prediction (<span id="percentCorrect" class="text-success">56%</span> &mdash; <span id="percentIncorrect" class="text-warning">20%</span> &mdash; <span id="percentNoMask"class="text-danger">5%</span>)</h2>
 	<div class="progress my-3" style="height: 30px;">
-		<div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Face mask worn correctly</div>
+		<div id="progressCorrect" class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Face mask worn correctly</div>
 	</div>
 	<div class="progress my-3" style="height: 30px;">
-		<div class="progress-bar bg-warning" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Face mask worn incorrectly</div>
+		<div id="progressIncorrect" class="progress-bar bg-warning" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Face mask worn incorrectly</div>
 	</div>
 	<div class="progress my-3" style="height: 30px;">
-		<div class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Without face mask</div>
+		<div id="progressNoMask" class="progress-bar bg-danger" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">Without face mask</div>
 	</div>
 </div>
 {% endblock %}

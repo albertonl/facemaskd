@@ -1,4 +1,4 @@
-// Classifier Variable
+// Classifier variable
 let classifier;
 // Model URL
 let imageModelURL = '/static/model/data/';
@@ -8,6 +8,9 @@ let video;
 let flippedVideo;
 // To store the classification
 let label = "";
+
+// Result display
+var resultsDisplay = {};
 
 
 // Load the model first
@@ -31,6 +34,21 @@ function setup () {
 			document.getElementById("videoContainer").appendChild(e);
 		}
 	});
+
+	resultsDisplay = {
+		correct: {
+			span: document.getElementById('percentCorrect'),
+			bar: new ProgressBar(document.getElementById('progressCorrect'))
+		},
+		incorrect: {
+			span: document.getElementById('percentIncorrect'),
+			bar: new ProgressBar(document.getElementById('progressIncorrect'))
+		},
+		nomask: {
+			span: document.getElementById('percentNoMask'),
+			bar: new ProgressBar(document.getElementById('progressNoMask'))
+		}
+	};
 
 	flippedVideo = ml5.flipImage(video);
 	// Start classifying
@@ -65,24 +83,30 @@ function gotResult(error, results) {
 	}
 	// The results are in an array ordered by confidence.
 	// console.log(results);
-	
+
 	// Display results
 	for (let i = 0; i < 3; i++) {
 		switch (results[i].label) {
 			case "Mask worn correctly":
-				document.getElementById("percentCorrect").innerHTML = Math.round(results[i].confidence * 100);
-				document.getElementById("progressCorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
-				document.getElementById("progressCorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+				resultsDisplay.correct.span.innerHTML = Math.round(results[i].confidence * 100) + '%';
+				resultsDisplay.correct.bar.changeProgress(Math.round(results[i].confidence * 100));
+				// document.getElementById("percentCorrect").innerHTML = String(Math.round(results[i].confidence * 100)) + '%';
+				// document.getElementById("progressCorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
+				// document.getElementById("progressCorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
 				break;
 			case "Mask worn incorrectly":
-				document.getElementById("percentCorrect").innerHTML = Math.round(results[i].confidence * 100);
-				document.getElementById("progressCorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
-				document.getElementById("progressCorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+				resultsDisplay.incorrect.span.innerHTML = Math.round(results[i].confidence * 100) + '%';
+				resultsDisplay.incorrect.bar.changeProgress(Math.round(results[i].confidence * 100));
+				// document.getElementById("percentIncorrect").innerHTML = String(Math.round(results[i].confidence * 100)) + '%';
+				// document.getElementById("progressIncorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
+				// document.getElementById("progressIncorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
 				break;
 			case "Without mask":
-				document.getElementById("percentNoMask").innerHTML = Math.round(results[i].confidence * 100);
-				document.getElementById("progressNoMask").style.width = '${Math.round(results[i].confidence * 100)}%';
-				document.getElementById("progressNoMask").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
+				resultsDisplay.nomask.span.innerHTML = Math.round(results[i].confidence * 100) + '%';
+				resultsDisplay.nomask.bar.changeProgress(Math.round(results[i].confidence * 100));
+				// document.getElementById("percentNoMask").innerHTML = String(Math.round(results[i].confidence * 100)) + '%';
+				// document.getElementById("progressNoMask").style.width = '${Math.round(results[i].confidence * 100)}%';
+				// document.getElementById("progressNoMask").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
 				break;
 		}
 /*
@@ -103,7 +127,7 @@ function gotResult(error, results) {
 	}
 	label = results[0].label;
 	// Classify again!
-	classifyVideo();
+	setTimeout(classifyVideo, 50);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

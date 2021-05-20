@@ -4,13 +4,18 @@ let classifier;
 let imageModelURL = '/static/model/data/';
 
 // Video
-let video;
+var video;
+var videoCanvas;
 let flippedVideo;
 // To store the classification
-let label = "";
+// let label = "";
 
 // Result display
 var resultsDisplay = {};
+
+// Video refresh rate (default 50ms)
+var refreshRate = 50;
+var videoPaused = false;
 
 
 // Load the model first
@@ -19,7 +24,7 @@ function preload() {
 }
 
 function setup () {
-	var videoCanvas = createCanvas(document.getElementById("videoContainer").offsetWidth - 50, Math.round((document.getElementById("videoContainer").offsetWidth - 50) * 0.812));
+	videoCanvas = createCanvas(document.getElementById("videoContainer").offsetWidth - 50, Math.round((document.getElementById("videoContainer").offsetWidth - 50) * 0.812));
 	// Create the video
 	video = createCapture(VIDEO);
 	video.size(document.getElementById("videoContainer").offsetWidth - 50, Math.round((document.getElementById("videoContainer").offsetWidth - 50)* 0.812));
@@ -61,10 +66,10 @@ function draw() {
 	image(flippedVideo, 0, 0);
 
 	// Draw the label
-	fill(255);
-	textSize(16);
-	textAlign(CENTER);
-	text(label, width / 2, height - 4);
+	// fill(255);
+	// textSize(16);
+	// textAlign(CENTER);
+	// text(label, width / 2, height - 4);
 }
 
 // Get a prediction for the current video frame
@@ -109,25 +114,19 @@ function gotResult(error, results) {
 				// document.getElementById("progressNoMask").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
 				break;
 		}
-/*
-		if (results[i].label === "Mask worn correctly") {
-			document.getElementById("percentCorrect").innerHTML = Math.round(results[i].confidence * 100);
-			document.getElementById("progressCorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
-			document.getElementById("progressCorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
-		} else if (results[i].label === "Mask worn incorrectly") {
-			document.getElementById("percentIncorrect").innerHTML = Math.round(results[i].confidence * 100);
-			document.getElementById("progressIncorrect").style.width = '${Math.round(results[i].confidence * 100)}%';
-			document.getElementById("progressIncorrect").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
-		} else if (results[i].label === "Without mask") {
-			document.getElementById("percentNoMask").innerHTML = Math.round(results[i].confidence * 100);
-			document.getElementById("progressNoMask").style.width = '${Math.round(results[i].confidence * 100)}%';
-			document.getElementById("progressNoMask").setAttribute("aria-valuenow", String(Math.round(results[i].confidence * 100)));
-		}
-*/
 	}
-	label = results[0].label;
+	// label = results[0].label;
 	// Classify again!
-	setTimeout(classifyVideo, 50);
+	if (videoPaused) {
+		setTimeout(pauseVideo, 500);
+	} else {
+		setTimeout(classifyVideo, refreshRate);
+	}
+}
+
+function pauseVideo() {
+	if (!videoPaused) classifyVideo();
+	setTimeout(pauseVideo, 500);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

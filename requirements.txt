@@ -1,5 +1,12 @@
 asgiref==3.2.7
 Django==3.0.7
-Pillow
+Pillow==7.1.2
+pyserial==3.5
 pytz==2020.1
+rpi-ws281x==4.2.6
+RPi.GPIO==0.7.0
+Seeed-grove.py==0.3
+seeed-python-mlx9064x==1.1.4
+smbus2==0.4.1
+spidev==3.5
 sqlparse==0.3.1

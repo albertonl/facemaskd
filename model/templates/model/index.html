@@ -41,9 +41,9 @@
 		<div class="col-lg-6 d-lg-block d-sm-none">
 			<h3 class="pt-5">Video frame size</h3>
 			<div id="videoFrameSizeSelect" class="btn-group" role="group" aria-label="Video frame size selection">
-				<button type="button" id="btnSmallVideo" data-size="small" class="btn btn-secondary btn-lg">Small</button>
-				<button type="button" id="btnNormalVideo" data-size="normal" class="btn btn-secondary btn-lg active">Normal</button>
-				<button type="button" id="btnLargeVideo" data-size="large" class="btn btn-secondary btn-lg">Large</button>
+				<button type="button" id="btnSmallVideo" data-size="small" class="btn btn-secondary btn-lg" title="42% width">Small</button>
+				<button type="button" id="btnNormalVideo" data-size="normal" class="btn btn-secondary btn-lg active" title="50% width">Normal</button>
+				<button type="button" id="btnLargeVideo" data-size="large" class="btn btn-secondary btn-lg" title="58% width">Large</button>
 			</div>
 		</div>
 		<div class="col-lg-6 col-sm-12">
@@ -56,6 +56,12 @@
 				<label for="videoRefreshRateSelect" class="form-label">Refresh video every <span id="currentRefreshVideoRate">50</span>ms</label>
 			-->
 			<input type="range" class="form-range" min="0" max="1000" step="50" value="50" id="videoRefreshRateSelect">
+		</div>
+	</div>
+
+	<div class="row mx-5" id="footer">
+		<div class="col-12 text-center">
+			<a href="http://iesmariablasco.com" target="_blank" title="Official website of the IES María Blasco (opens in a new tab)"><img src="{% static 'model/img/ies_logo.jpg' %}" alt="IES María Blasco" height="200"></a>
 		</div>
 	</div>
 </div>

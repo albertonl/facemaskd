@@ -66,6 +66,10 @@ function draw() {
 	background(0);
 	// Draw the video
 	image(flippedVideo, 0, 0);
+	ellipse(Math.round(document.getElementById("videoContainer").offsetWidth/2), Math.round(Math.round((document.getElementById("videoContainer").offsetWidth) * 0.812)/2), 400, 500);
+	noFill();
+	stroke(255, 255, 255);
+	strokeWeight(4);
 
 	// Draw the label
 	// fill(255);

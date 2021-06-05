@@ -135,7 +135,22 @@ function pauseVideo() {
 	setTimeout(pauseVideo, 500);
 }
 
+function getThermalPoint() {
+	const request = new XMLHttpRequest();
+	request.open('GET', '/getpoint');
+
+	request.onload = () => {
+		const data = JSON.parse(request.responseText);
+		document.getElementById('temperature').innerHTML = String(Math.round((data.point + Number.EPSILON) * 100) / 100);
+	};
+
+	request.send();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+	// Set 1000ms interval for the thermal camera:
+	setInterval(getThermalPoint, 1000);
+	
 	// Resize video canvas on window resize:
 	window.addEventListener('resize', () => {
 		setup();

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import JsonResponse
 
 import seeed_mlx9064x
 import time
@@ -22,5 +23,5 @@ def api_thermal_datapoint(request):
         print("Error getting thermal frame")
 
     return JsonResponse({
-        point: max(frame)
+        "point": max(frame)
     })

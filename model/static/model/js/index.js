@@ -66,7 +66,7 @@ function draw() {
 	background(0);
 	// Draw the video
 	image(flippedVideo, 0, 0);
-	ellipse(Math.round(document.getElementById("videoContainer").offsetWidth/2), Math.round(Math.round((document.getElementById("videoContainer").offsetWidth) * 0.812)/2), 400, 500);
+	ellipse(Math.round(document.getElementById("videoContainer").offsetWidth/2), Math.round(Math.round((document.getElementById("videoContainer").offsetWidth) * 0.812)/2), 400, 550);
 	noFill();
 	stroke(255, 255, 255);
 	strokeWeight(4);
@@ -141,7 +141,16 @@ function getThermalPoint() {
 
 	request.onload = () => {
 		const data = JSON.parse(request.responseText);
-		document.getElementById('temperature').innerHTML = String(Math.round((data.point + Number.EPSILON) * 100) / 100);
+		let temperature = Math.round((data.point + Number.EPSILON) * 100) / 100;
+		document.getElementById('temperature').innerHTML = String(temperature);
+		
+		if (temperature > 37.0) {
+			document.querySelector(".temp-wrapper").classList.remove("bg-success");
+			document.querySelector(".temp-wrapper").classList.add("bg-danger");
+		} else {
+			document.querySelector(".temp-wrapper").classList.remove("bg-danger");
+			document.querySelector(".temp-wrapper").classList.add("bg-success");
+		}
 	};
 
 	request.send();

@@ -143,7 +143,8 @@ function getThermalPoint() {
 		const data = JSON.parse(request.responseText);
 		
 		// A temperature correction may be needed here
-		let temperature = Math.round((data.point + Number.EPSILON) * 100) / 100;
+		let temperature = data.point.toString().match(/^-?\d+(?:\.\d{0,2})?/); // this TRUNCATES to two decimal places
+		// let temperature = Math.round((data.point + Number.EPSILON) * 100) / 100; // this ROUNDS to two decimal places
 		document.getElementById('temperature').innerHTML = String(temperature);
 		
 		if (temperature > 37.0) {

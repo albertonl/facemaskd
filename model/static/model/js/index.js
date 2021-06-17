@@ -141,6 +141,8 @@ function getThermalPoint() {
 
 	request.onload = () => {
 		const data = JSON.parse(request.responseText);
+		
+		// A temperature correction may be needed here
 		let temperature = Math.round((data.point + Number.EPSILON) * 100) / 100;
 		document.getElementById('temperature').innerHTML = String(temperature);
 		
